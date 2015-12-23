@@ -8,7 +8,8 @@
   "keywords": [
     "web-component",
     "polymer",
-    "seed"
+    "wizard",
+    "progress"
   ],
   "main": "timeu-wizard.html",
   "license": "http://polymer.github.io/LICENSE.txt",

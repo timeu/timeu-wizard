@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/PolymerElements/iron-ajax.svg?branch=master)](https://travis-ci.org/PolymerElements/iron-ajax)
+[![Build Status](https://travis-ci.org/timeu/timeu-wizard.svg)](https://travis-ci.org/timeu/timeu-wizard)
 
 _[Demo and API Docs](https://timeu.github.io/timeu-wizard/)_
 

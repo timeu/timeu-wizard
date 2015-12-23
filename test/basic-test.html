@@ -1,0 +1,178 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../timeu-wizard.html">
+  </head>
+  <body>
+
+    <!-- You can use the document as a place to set up your fixtures. -->
+    <test-fixture id="timeu-wizard-fixture">
+      <template>
+        <timeu-wizard steps='["step1","step2","step3"]'>
+        </timeu-wizard>
+      </template>
+    </test-fixture>
+
+    <script>
+      
+      function expectActive(li) {
+        expect(li.classList.contains('done')).to.be.false;
+        expect(li.classList.contains('active')).to.be.true;
+        expect(window.getComputedStyle(Polymer.dom(li).querySelector('.checkicon')).opacity).to.be.equal('0');
+      }
+      function expectDone(li) {
+        expect(li.classList.contains('done')).to.be.true;
+        expect(li.classList.contains('active')).to.be.false;
+        expect(window.getComputedStyle(Polymer.dom(li).querySelector('.checkicon')).opacity).to.be.equal('1');
+      }
+      
+      function expectEmpty(li) {
+        expect(li.classList.contains('done')).to.be.false;
+        expect(li.classList.contains('active')).to.be.false;
+        expect(window.getComputedStyle(Polymer.dom(li).querySelector('.checkicon')).opacity).to.be.equal('0');
+      }
+      
+      function expectLabel(li,label) {
+        expect(Polymer.dom(li).querySelector('span').textContent).to.be.equal(label);
+      }
+      
+      function expectContent(li,content) {
+        expect(content).to.contain(window.getComputedStyle(li,':before').content);
+      }
+      
+      suite('<timeu-wizard>', function() {
+
+        var myEl;
+
+        setup(function() {
+          myEl = fixture('timeu-wizard-fixture');
+        });
+
+        test('default settings', function() {
+          expect(myEl.step).to.be.equal(1);
+          expect(myEl.vertical).to.be.false;
+        });
+        
+        test('disallow lower out of bound step settings',function(done) {
+          myEl.step = 0;
+          async.nextTick(function() {
+            expect(myEl.step).to.be.equal(1);
+            done();
+          });
+        });
+        
+        test('disallow upper out of bound step settings', function(done) {
+          myEl.step = 4;
+          async.nextTick(function() {
+            expect(myEl.step).to.be.equal(1);
+            done();
+          })
+        });
+
+        test('increment noop when last step', function() {
+          myEl.step = 3;
+          myEl.increment();
+          expect(myEl.step).to.be.equal(3);
+        });
+        
+        test('decrement noop when first step', function() {
+          myEl.step = 1;
+          myEl.decrement();
+          expect(myEl.step).to.be.equal(1);
+        });
+        
+        test('increment step++', function() {
+          myEl.increment();
+          expect(myEl.step).to.be.equal(2);
+        });
+        
+        test('decrement step--', function() {
+          myEl.step =2; 
+          myEl.decrement();
+          expect(myEl.step).to.be.equal(1);
+        });
+        
+        suite('dom structure', function() {
+          test('check basic dom structure', function() {
+            myEl.step =2;
+            Polymer.dom.flush();
+            var lis = Polymer.dom(myEl.root).querySelectorAll("li");
+            expect(myEl.hasAttribute('vertical')).to.be.false;
+            
+            // check if there are 3 items
+            expect(lis.length).to.be.equal(3);
+            
+            // check each circle 
+            expectDone(lis[0]);
+            expectActive(lis[1]);
+            expectEmpty(lis[2]);
+            
+            // check labels 
+            expectLabel(lis[0],myEl.steps[0]);
+            expectLabel(lis[1],myEl.steps[1]);
+            expectLabel(lis[2],myEl.steps[2]);
+            
+            // check content
+            expectContent(lis[0],['""']);
+            expectContent(lis[1],['counter(step)']);
+            expectContent(lis[2],['counter(step)']);
+            
+            // check filling of line
+            var line = Polymer.dom(myEl.root).querySelector('#filling');
+            expect(line.style.transform).to.be.equal('scale(0.5, 1)');
+          });
+          
+          test('check dom with custom content', function(){
+            myEl.steps = [{'label':'step1','content':'A'},{'label':'step2','content':'B'}]
+            Polymer.dom.flush();
+            var lis = Polymer.dom(myEl.root).querySelectorAll("li");
+            expect(myEl.hasAttribute('vertical')).to.be.false;
+            
+            // check if there are 3 items
+            expect(lis.length).to.be.equal(2);
+            
+            // check labels 
+            expectLabel(lis[0],'step1');
+            expectLabel(lis[1],'step2');
+            
+            
+            // NOTE: getComputedStyle Firefox will show attr(data-content) while Chrome will return actual value 
+            expectContent(lis[0],['"A"','attr(data-content)']);
+            expectContent(lis[1],['"B"','attr(data-content)']);
+            
+          });
+          
+          test('check vertical dom structure', function() {
+            myEl.vertical = true;
+            myEl.step =2;
+            Polymer.dom.flush();
+            var ulEl = Polymer.dom(myEl.root).querySelector("ul");
+            expect(window.getComputedStyle(ulEl).flexDirection).to.be.equal('column');
+            // check filling of line
+            var line = Polymer.dom(myEl.root).querySelector('#filling');
+            expect(line.style.transform).to.be.equal('scale(1, 0.5)');
+            
+          });
+        });
+        
+      });
+    </script>
+
+  </body>
+</html>

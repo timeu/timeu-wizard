@@ -2,18 +2,18 @@
   "name": "timeu-wizard",
   "version": "1.0.0",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Uemit Seren <uemit.seren@gmail.com>"
   ],
   "description": "An element providing a solution to no problem in particular.",
   "keywords": [
-    "web-component",
+    "web-components",
     "polymer",
     "wizard",
     "progress"
   ],
   "main": "timeu-wizard.html",
-  "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "license": "MIT",
+  "homepage": "https://github.com/timeu/timeu-wizard/",
   "ignore": [
     "/.*",
     "/test/"

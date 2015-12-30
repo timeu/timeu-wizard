@@ -1,19 +1,22 @@
 language: node_js
 sudo: false
-before_script:
-  - npm install web-component-tester
-  - npm install bower
-  - 'export PATH=$PWD/node_modules/.bin:$PATH'
-  - bower install
-  - npm install polylint
-  - polylint
 node_js: stable
 addons:
   firefox: latest
   apt:
     sources:
-      - google-chrome
+    - google-chrome
     packages:
-      - google-chrome-stable
+    - google-chrome-stable
+before_script:
+- npm install web-component-tester
+- npm install bower
+- export PATH=$PWD/node_modules/.bin:$PATH
+- bower install
 script:
-  - xvfb-run wct
+- xvfb-run wct --skip-plugin sauce
+- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --skip-plugin local; fi
+env:
+  global:
+  - secure: QrF9OBBaC4NMJy5YoHzlldFlSnwTjEJtTEC/5DgLf7KD+p5K6rY6224bOWwE5UPsPnkNkKGCl8rJ+P/CHqSqH8/2+zMnDrSI+owvZiYxXMdCpencnn2m2F3p2VDmYdVXlKRxXjWO/DyKOjGf3Zf12LB9I/tVEG2RwF9FTpZEzmSZXiiHyZfjY2/I5Ib0MGhNudunrp9OprrOJAliumvOhNYJzFhFSzSfzgpoo+vVFpv+K5WhlhkZ0WoctRWZQ4EUGLOo/ifpSNOFs2weHRL7di15w4blGiA7jGfKk4i+jEAQVQUV0XeDjkhX6LCnKUIkTJr9UzDjsffe/nJrusmQw8gD4SwlTTWjNtWiiKyRezjlMzq/nAvGIEzVjVrWDouznfNt/3tVQLSOXoqzJIrDWeLp3fwtdOUDGPcrp8CkHUxLEqkwtON8Xny5FG0bl5uqt88yfhmetscx512PQjZH/+aTrKJwrYz06i30qB8B//5PfN0/amrE/n/4ewWbYqmsjVfc9zBlDc0tNbJ7z3db7KxtjBPc3BHq3QrvfFxowlGmqTNVRur3MwD2wVmOo7GtyTy8/ZFT7f0hw8W49fML1BPreY25lzQf2lqR5J+XYtbyTt6H3GTUmWIoq0CfmFzTXToIVZkR2ETqDZXzxDKU+QU4Pf+veS6SkWCjjM/9ZMY=
+  - secure: dT4HyeYK9f7+Xw1nQ10nZ4R+CsqrSv9Bnfr6QCl3n4ZK+WYjWBPxjUMRh0OWKb5Z7k7bCoMniyaXhyoixkDsfxslzW2G1V1h3oQwrWJ0EY9/x+4vq8/blzuREkSRE/xOf55lww3kCmRhUJAPZYXjB5mKsvZ7C/NQNS1ArxwYqrniFnFxxtdGnXL0DZPubhmxDPr4UBPZNV2PvmOdMDv1m4p77OLyEUfJTX4TgTU5RKOJfBcPFoJvNQySMAc99h7jVq+LWJiabHyrAJiZNAm5z31VNyhFKtGPFajvxtLpDSnocyXch8lCPGTn9jqwbKyjkIm32O9aZaQmH/pQgYcG3TqIhIVEulOW3SN0ABs/Zmqk/gNpRTsc5G4iKerP+YJVQjv6QU3yCQL99M+G64xpOY4zqLq1j9SkD+N2ylprDHZFlb1yTbTWJSXh7fKG4DoL92g3NAG3I7wK9/YcvnK2W3q9ubiyC4mF6DUTKuEtgQwVsv5VwxmbPK7dxmAKl4/7JGwTrXmoXgUA2P6LQwoKgzdx7gU0MlnSWF0Cq1BOAVxrRZUU4sG0kS+oB/rE+1mWvZcwdCS3o4LN/KcTZDpF2+9pL5563cMkCfjOOTlEwfHkiJwoKbpkF3zzyswSj1QsDp25wEc+WoLwzwbX4WiLbIgbOLjPgkvyA+n5AIDEx0U=

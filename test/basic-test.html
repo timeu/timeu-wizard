@@ -129,7 +129,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             expectLabel(lis[2],myEl.steps[2]);
             
             // check content
-            expectContent(lis[0],['""']);
+            expectContent(lis[0],['""',"\'\'"]);
             expectContent(lis[1],['counter(step)']);
             expectContent(lis[2],['counter(step)']);
             
@@ -153,8 +153,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             
             
             // NOTE: getComputedStyle Firefox will show attr(data-content) while Chrome will return actual value 
-            expectContent(lis[0],['"A"','attr(data-content)']);
-            expectContent(lis[1],['"B"','attr(data-content)']);
+            expectContent(lis[0],['"A"','attr(data-content)','A']);
+            expectContent(lis[1],['"B"','attr(data-content)','B']);
             
           });
           

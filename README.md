@@ -39,3 +39,11 @@ Custom property | Description | Default
 `--timeu-wizard-label-font-size` | The font-size of the labels | `13px`
 `--timeu-wizard-step-font-size` | The font-size of the steps inside of the circle | `25px`
 `--timeu-wizard-circle-border-size` | The thickness of the circle border | `1px`
+`--timeu-wizard` | Mixin applied to element host | {}
+`--timeu-wizard-container` | Mixin applied to container div | {}
+`--timeu-wizard-list` | Mixin applied to steps list | {}
+`--timeu-wizard-list-item` | Mixin applied to each step | {}
+`--timeu-wizard-list-item-active` | Mixin applied to each active step | {}
+`--timeu-wizard-list-item-done` | Mixin applied to each done step | {}
+`--timeu-wizard-list-item-icon` | Mixin applied to each step icon | {}
+`--timeu-wizard-list-item-checkicon` | Mixin applied to each done step icon | {}

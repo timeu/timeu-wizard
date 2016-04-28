@@ -43,6 +43,14 @@ Custom property | Description | Default
 `--timeu-wizard-label-font-size` | The font-size of the labels | `13px`
 `--timeu-wizard-step-font-size` | The font-size of the steps inside of the circle | `25px`
 `--timeu-wizard-circle-border-size` | The thickness of the circle border | `1px`
+`--timeu-wizard` | Mixin applied to element host | {}
+`--timeu-wizard-container` | Mixin applied to container div | {}
+`--timeu-wizard-list` | Mixin applied to steps list | {}
+`--timeu-wizard-list-item` | Mixin applied to each step | {}
+`--timeu-wizard-list-item-active` | Mixin applied to each active step | {}
+`--timeu-wizard-list-item-done` | Mixin applied to each done step | {}
+`--timeu-wizard-list-item-icon` | Mixin applied to each step icon | {}
+`--timeu-wizard-list-item-checkicon` | Mixin applied to each done step icon | {}
 
 
 @group wizards
@@ -59,30 +67,38 @@ Custom property | Description | Default
         box-sizing: border-box;
         width:100%;
         height:100%;
+
+        @apply(--timeu-wizard);
       }
+
       :host([horizotnal]) ul {
         flex-direction: row;
       }
+
       :host([vertical]) ul {
-        flex-direction:column;
+        flex-direction: column;
       }
+
       :host([vertical]) .line {
         width: 1px;
         top:0;
         left: 50%;
         height: calc(100% - var(--timeu-wizard-circle-size,40px));
       }
-      
+
       ul {
-        display:flex;
-        justify-content:space-between;
+        display: flex;
+        justify-content: space-between;
         padding:0;
         margin:0;
+
+        @apply(--timeu-wizard-list);
       }
-      
+
       #line{
         background-color:var(--timeu-wizard-line-color,#dfdfdf);
       }
+
       .line {
         height: var(--timeu-wizard-line-size,1px);
         position: absolute;
@@ -90,14 +106,14 @@ Custom property | Description | Default
         left: 0;
         right: 0;
       }
-      
+
       #filling {
         background-color: var(--timeu-wizard-filling-color,#2db36f);
         -webkit-transition: -webkit-transform var(--timeu-wizard-anim-speed,0.5s);
         -moz-transition: -moz-transform var(--timeu-wizard-anim-speed,0.5s);
         transition: transform var(--timeu-wizard-anim-speed,0.5s);
       }
-      
+
       #filling {
         -webkit-transform: scaleX(0);
         -moz-transform: scaleX(0);
@@ -110,7 +126,7 @@ Custom property | Description | Default
         -o-transform-origin: left center;
         transform-origin: left center;
       }
-      
+
       :host([vertical]) #filling {
         -webkit-transform: scaleY(0);
         -moz-transform: scaleY(0);
@@ -123,27 +139,34 @@ Custom property | Description | Default
         -o-transform-origin: top center;
         transform-origin: top center;
       }
-      
+
       #container {
         width: 100%;
         height:100%;
         position:relative;
+
+        @apply(--timeu-wizard-container);
       }
+
       #wizard {
         counter-reset: step;
         height:100%;
         width:100%;
       }
+
       #wizard li {
         list-style-type:none;
         position: relative;
         text-align: center;
         color: var(--timeu-wizard-filling-color,#dfdfdf);
-        
+
+        @apply(--timeu-wizard-list-item);
       }
+
       #wizard li[data-content]:before {
         content: attr(data-content);
       }
+
       #wizard li:before {
         content: counter(step);
         counter-increment: step;
@@ -161,20 +184,32 @@ Custom property | Description | Default
         -moz-transition: background-color var(--timeu-wizard-anim-speed,0.5s), border-color var(--timeu-wizard-anim-speed,0.5s);
         transition: background-colorvar(--timeu-wizard-anim-speed,0.5s), border-color var(--timeu-wizard-anim-speed,0.5s);
         font-size:var(--timeu-wizard-step-font-size,25px);
+
+        @apply(--timeu-wizard-list-item-icon);
       }
+
       #wizard li.active, #wizard li.done  {
         color: var(--time-wizard-active-color,#2db36f);
+        @apply(--timeu-wizard-list-item-active);
       }
+
+      #wizard li.done {
+        @apply(--timeu-wizard-list-item-done);
+      }
+
       #wizard li.done:before {
         content:'';
       }
+
       #wizard li.active:before, #wizard li.done:before{
         border-color: var(--time-wizard-active-color,#2db36f) !important;
       }
+
       #wizard li.active:before {
-        background-color: var(--timeu-wizard-active-color,#2db36f);
-        color:white;
+        background-color: var(--timeu-wizard-active-color, #2db36f);
+        color: white;
       }
+
       .checkicon {
         opacity:0;
         height: var(--timeu-wizard-circle-size,40px);
@@ -185,12 +220,16 @@ Custom property | Description | Default
         left: calc(50% - var(--timeu-wizard-circle-size,40px)/2);
         transition: all var(--timeu-wizard-anim-speed,0.5s);
         -webkit-transition: all var(--timeu-wizard-anim-speed,0.5s);
+
+        @apply(--timeu-wizard-list-item-checkicon);
       }
+
       #wizard li.done .checkicon {
         opacity:1;
       }
+
       .label {
-        font-size:var(--timeu-wizard-label-font-size,13px);
+        font-size: var(--timeu-wizard-label-font-size,13px);
       }
     </style>
     <div id="container">
@@ -198,7 +237,7 @@ Custom property | Description | Default
       <span id="filling" class="line" style$="transform: scale({{_calculateFilling(steps,step,vertical)}});"></span>
       <ul id="wizard">
         <template is="dom-repeat" items="{{steps}}" >
-          <li class$="{{_computeClass(index,item,step)}}" data-content$="{{item.content}}">
+          <li class$="{{_computeClass(index,item,step)}}" data-content$="{{item.content}}" on-tap="_handleItemTap">
             <div class="checkicon">
               <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="pointer-events: none; display: block; width: 100%; height: 100%;">
                 <g>
@@ -213,76 +252,81 @@ Custom property | Description | Default
      </div>
   </template>
   <script>
-  
     Polymer({
-  
+
       is: 'timeu-wizard',
-  
+
       properties: {
-  
         /**
-        * `step` indicates the current step in the wizard
-        */
+         * Fired when a step item is tapped.
+         *
+         * @event timeu-wizard-item-tap
+         */
+
+        /**
+         * `step` indicates the current step in the wizard
+         */
         step: {
           type: Number,
-          notify:true,
-          value:1,
-          observer:'_validateStep'
+          notify: true,
+          value: 1,
+          observer: '_validateStep'
         },
-  
+
         /**
-        * Specifiies the available steps.
-        *
-        * @type [string]
-        */
+         * Specifiies the available steps.
+         *
+         * @type [string]
+         */
         steps: {
           type: Array,
           value: function() {
             return [];
           }
         },
-        
+
         /**
-        * If set to true, a vertical progress wizard will be displayed.
-        *
-        * @type [string]
-        */
+         * If set to true, a vertical progress wizard will be displayed.
+         *
+         * @type [string]
+         */
         vertical: {
           type: Boolean,
-          value:false,
-          reflectToAttribute:true
+          value: false,
+          reflectToAttribute: true
         }
       },
-  
+
       // Element Lifecycle
-  
+
       attached: function() {
         this._width = this.getBoundingClientRect().width;
       },
-  
+
       // Element Behavior
-  
+
       /**
-      * Increment the current step 
-      *
-      * Use this function for moving to the next step in the wizard
-      */
+       * Increment the current step 
+       *
+       * Use this function for moving to the next step in the wizard
+       */
       increment: function() {
         if (this.step < this.steps.length) {
           this.step++;
         }
       },
-      
+
       /**
-      * Decrement the current step
-      *
-      * Use this function for moving to the previous step in the wizard 
-      */
+       * Decrement the current step
+       *
+       * Use this function for moving to the previous step in the wizard 
+       */
       decrement: function() {
         if (this.step > 1) {
           this.step--;
         }
       },
+
       _validateStep: function(newValue,oldValue) {
         if (this.steps === undefined) {
           return;
@@ -291,15 +335,16 @@ Custom property | Description | Default
           this.async(function() {
             this.step = oldValue;
           });
-          
-        } 
+        }
       },
+
       _getLabel: function(item) {
         if (item !== null && typeof item === 'object' && item.label !== undefined) {
           return item.label;
         }
         return item;
       },
+
       _computeClass: function(index,item,step) {
         if ((index+1) < step) {
           return "done";
@@ -309,6 +354,7 @@ Custom property | Description | Default
         }
         return "";
       },
+
       _caclulateRatio: function(steps,step) {
         if (steps === undefined || step === 1) {
           return 0;
@@ -318,11 +364,19 @@ Custom property | Description | Default
         }
         return (step-1)/(steps.length-1);
       },
+
       _calculateFilling: function(steps,step,vertical) {
           var ratio = this._caclulateRatio(steps,step); 
           var scaleX = (vertical ? 1 : ratio);
           var scaleY = (vertical ? ratio : 1);
           return scaleX+","+scaleY;
+      },
+
+      _handleItemTap: function(e) {
+        this.fire('timeu-wizard-item-tap', {
+          model: e.model,
+          target: e.target
+        });
       }
     });
   </script>

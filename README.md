@@ -12,7 +12,21 @@ The available steps are provided by either as an `array` of `Objects` or an `arr
 
 Simple example:
 
+
+    
+<!--
+```
+<custom-element-demo>
+  <template>
+      <link rel=”import” href=”timeu-wizard.html”>
     <timeu-wizard steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard>
+  </template>    
+</custom-element-demo>
+```
+-->
+```
+<timeu-wizard steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard>
+```
 
 By providing an `array` of `Objects` users can provide custom contents for the circles.
 

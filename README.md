@@ -19,7 +19,7 @@ Simple example:
 <custom-element-demo>
   <template>
       <link rel=”import” href=”timeu-wizard.html”>
-    <timeu-wizard steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard>
+      <next-code-block></next-code-block>
   </template>    
 </custom-element-demo>
 ```

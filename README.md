@@ -24,20 +24,20 @@ Simple example:
 </custom-element-demo>
 ```
 -->
-```
+```html
 <timeu-wizard steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard>
 ```
 
 By providing an `array` of `Objects` users can provide custom contents for the circles.
 
 Example with custom circle content:
-
-    <timeu-wizard steps='[{"label:Step1","content":"A"},{label:"Step2","content":"B"}]'></timeu-wizard>
-
+```html
+<timeu-wizard steps='[{"label:Step1","content":"A"},{label:"Step2","content":"B"}]'></timeu-wizard>
+```
 It is also possible to display a vertical progress by adding the `vertical` attribute: 
-
-    <timeu-wizard vertical steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard> 
-
+```html
+<timeu-wizard vertical steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard> 
+```
 ### Styling
 
 The following custom properties and mixins are also available for styling:

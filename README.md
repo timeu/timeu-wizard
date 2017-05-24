@@ -3,7 +3,7 @@
 _[Demo and API Docs](https://timeu.github.io/timeu-wizard/)_
 
 
-##&lt;timeu-wizard&gt;
+## &lt;timeu-wizard&gt;
 
 
 The `timeu-wizard` element displaying the progress of a wizard as a series of connected circles.  

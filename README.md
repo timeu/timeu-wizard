@@ -10,11 +10,8 @@ By default the step number is displayed inside the circle and if provided a labe
 The available steps are provided by either as an `array` of `Objects` or an `array` of `Strings`.
 
 
-**This branch (master) works only with Polymer 2.x. For a Polymer 1.x version check out the 1.x branch**
+**This branch (1.x) works only with Polymer 1.x. For a Polymer 2.x version check out the [master branch](https://github.com/timeu/timeu-wizard/tree/master)**
 
-## Versions (Polymer 2.x vs Polymer 1.x)
-The *master* branch and all *2.x.x* releases require `Polymer 2.x`.
-For `Polymer 1.x` support use *1.x.x* releases and the [1.x branch](https://github.com/timeu/timeu-wizard/tree/1.x).
 
 ## How to use
 

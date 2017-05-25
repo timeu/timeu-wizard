@@ -1,19 +1,27 @@
-[![Build Status](https://travis-ci.org/timeu/timeu-wizard.svg)](https://travis-ci.org/timeu/timeu-wizard)
+[![Build Status](https://travis-ci.org/timeu/timeu-wizard.svg)](https://travis-ci.org/timeu/timeu-wizard) [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/timeu/timeu-wizard)
 
-_[Demo and API Docs](https://timeu.github.io/timeu-wizard/)_
+_[Demo and API Docs](https://www.webcomponents.org/element/timeu/canvas-piechart)_
 
 
 ## &lt;timeu-wizard&gt;
 
-
-The `timeu-wizard` element displaying the progress of a wizard as a series of connected circles.  
-By default the step number is displayed inside the circle and if provided a label below.  
+The `timeu-wizard` element displaying the progress of a wizard as a series of connected circles.
+By default the step number is displayed inside the circle and if provided a label below.
 The available steps are provided by either as an `array` of `Objects` or an `array` of `Strings`.
+
+
+**This branch (master) works only with Polymer 2.x. For a Polymer 1.x version check out the 1.x branch**
+
+## Versions (Polymer 2.x vs Polymer 1.x)
+The *master* branch and all *2.x.x* releases require `Polymer 2.x`.
+For `Polymer 1.x` support use *1.x.x* releases and the [1.x branch](https://github.com/timeu/timeu-wizard/tree/1.x).
+
+## How to use
 
 Simple example:
 
 
-    
+
 <!--
 ```
 <custom-element-demo>
@@ -21,7 +29,7 @@ Simple example:
       <script src="../webcomponentsjs/webcomponents-lite.js"></script>
       <link rel="import" href="timeu-wizard.html">
       <next-code-block></next-code-block>
-  </template>    
+  </template>
 </custom-element-demo>
 ```
 -->
@@ -35,9 +43,9 @@ Example with custom circle content:
 ```html
 <timeu-wizard steps='[{"label:Step1","content":"A"},{label:"Step2","content":"B"}]'></timeu-wizard>
 ```
-It is also possible to display a vertical progress by adding the `vertical` attribute: 
+It is also possible to display a vertical progress by adding the `vertical` attribute:
 ```html
-<timeu-wizard vertical steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard> 
+<timeu-wizard vertical steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard>
 ```
 ### Styling
 

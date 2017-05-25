@@ -10,8 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-An element for displaying the progress of a wizard as a series of connected circles.  
-By default the step number is displayed inside the circle and if provided a label below.  
+An element for displaying the progress of a wizard as a series of connected circles.
+By default the step number is displayed inside the circle and if provided a label below.
 The available steps are provided by either as an `array` of `Objects` or an `array` of `Strings`.
 
 Simple example:
@@ -24,9 +24,9 @@ Example with custom circle content:
 
     <timeu-wizard steps='[{"label:Step1","content":"A"},{label:"Step2","content":"B"}]'></timeu-wizard>
 
-It is also possible to display a vertical progress by adding the `vertical` attribute: 
+It is also possible to display a vertical progress by adding the `vertical` attribute:
 
-    <timeu-wizard vertical steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard> 
+    <timeu-wizard vertical steps='["Step1","Step2","Step3"]' step="2"></timeu-wizard>
 
 ### Styling
 
@@ -67,8 +67,7 @@ Custom property | Description | Default
         box-sizing: border-box;
         width:100%;
         height:100%;
-
-        @apply(--timeu-wizard);
+        @apply --timeu-wizard ;
       }
 
       :host([horizotnal]) ul {
@@ -92,7 +91,7 @@ Custom property | Description | Default
         padding:0;
         margin:0;
 
-        @apply(--timeu-wizard-list);
+        @apply --timeu-wizard-list;
       }
 
       #line{
@@ -145,7 +144,7 @@ Custom property | Description | Default
         height:100%;
         position:relative;
 
-        @apply(--timeu-wizard-container);
+        @apply --timeu-wizard-container;
       }
 
       #wizard {
@@ -160,7 +159,7 @@ Custom property | Description | Default
         text-align: center;
         color: var(--timeu-wizard-filling-color,#dfdfdf);
 
-        @apply(--timeu-wizard-list-item);
+        @apply --timeu-wizard-list-item;
       }
 
       #wizard li[data-content]:before {
@@ -185,16 +184,16 @@ Custom property | Description | Default
         transition: background-colorvar(--timeu-wizard-anim-speed,0.5s), border-color var(--timeu-wizard-anim-speed,0.5s);
         font-size:var(--timeu-wizard-step-font-size,25px);
 
-        @apply(--timeu-wizard-list-item-icon);
+        @apply --timeu-wizard-list-item-icon;
       }
 
       #wizard li.active, #wizard li.done  {
         color: var(--timeu-wizard-active-color,#2db36f);
-        @apply(--timeu-wizard-list-item-active);
+        @apply --timeu-wizard-list-item-active;
       }
 
       #wizard li.done {
-        @apply(--timeu-wizard-list-item-done);
+        @apply --timeu-wizard-list-item-done;
       }
 
       #wizard li.done:before {
@@ -221,7 +220,7 @@ Custom property | Description | Default
         transition: all var(--timeu-wizard-anim-speed,0.5s);
         -webkit-transition: all var(--timeu-wizard-anim-speed,0.5s);
 
-        @apply(--timeu-wizard-list-item-checkicon);
+        @apply --timeu-wizard-list-item-checkicon;
       }
 
       #wizard li.done .checkicon {
@@ -306,7 +305,7 @@ Custom property | Description | Default
       // Element Behavior
 
       /**
-       * Increment the current step 
+       * Increment the current step
        *
        * Use this function for moving to the next step in the wizard
        */
@@ -319,7 +318,7 @@ Custom property | Description | Default
       /**
        * Decrement the current step
        *
-       * Use this function for moving to the previous step in the wizard 
+       * Use this function for moving to the previous step in the wizard
        */
       decrement: function() {
         if (this.step > 1) {
@@ -366,7 +365,7 @@ Custom property | Description | Default
       },
 
       _calculateFilling: function(steps,step,vertical) {
-          var ratio = this._caclulateRatio(steps,step); 
+          var ratio = this._caclulateRatio(steps,step);
           var scaleX = (vertical ? 1 : ratio);
           var scaleY = (vertical ? ratio : 1);
           return scaleX+","+scaleY;

@@ -1,21 +1,22 @@
 language: node_js
 sudo: required
-node_js: stable
-dist: trusty
+before_script:
+  - npm install -g bower polylint web-component-tester eslint eslint-plugin-html
+  - bower install
+  - polylint
+  - eslint *.html test/*.html
+node_js: '6'
 addons:
   firefox: latest
   apt:
     sources:
-    - google-chrome
+      - google-chrome
     packages:
-    - google-chrome-stable
-before_script:
-  - npm install -g bower polylint web-component-tester
-  - bower install
-  - polylint
+      - google-chrome-stable
 script:
-  - xvfb-run wct --skip-plugin sauce
-  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --skip-plugin local; fi
+  - xvfb-run wct
+  - 'if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct -s ''default''; fi'
+dist: trusty
 env:
   global:
   - secure: QrF9OBBaC4NMJy5YoHzlldFlSnwTjEJtTEC/5DgLf7KD+p5K6rY6224bOWwE5UPsPnkNkKGCl8rJ+P/CHqSqH8/2+zMnDrSI+owvZiYxXMdCpencnn2m2F3p2VDmYdVXlKRxXjWO/DyKOjGf3Zf12LB9I/tVEG2RwF9FTpZEzmSZXiiHyZfjY2/I5Ib0MGhNudunrp9OprrOJAliumvOhNYJzFhFSzSfzgpoo+vVFpv+K5WhlhkZ0WoctRWZQ4EUGLOo/ifpSNOFs2weHRL7di15w4blGiA7jGfKk4i+jEAQVQUV0XeDjkhX6LCnKUIkTJr9UzDjsffe/nJrusmQw8gD4SwlTTWjNtWiiKyRezjlMzq/nAvGIEzVjVrWDouznfNt/3tVQLSOXoqzJIrDWeLp3fwtdOUDGPcrp8CkHUxLEqkwtON8Xny5FG0bl5uqt88yfhmetscx512PQjZH/+aTrKJwrYz06i30qB8B//5PfN0/amrE/n/4ewWbYqmsjVfc9zBlDc0tNbJ7z3db7KxtjBPc3BHq3QrvfFxowlGmqTNVRur3MwD2wVmOo7GtyTy8/ZFT7f0hw8W49fML1BPreY25lzQf2lqR5J+XYtbyTt6H3GTUmWIoq0CfmFzTXToIVZkR2ETqDZXzxDKU+QU4Pf+veS6SkWCjjM/9ZMY=

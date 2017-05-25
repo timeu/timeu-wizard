@@ -8,6 +8,7 @@
     "fixture": true,
     "Polymer": true,
     "async": true,
-    "expect": true
+    "expect": true,
+    "flush": true
   }
 }

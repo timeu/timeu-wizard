@@ -1,13 +1,9 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../shadycss/apply-shim.html">
+<link rel="import" href="../polymer/lib/utils/render-status.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../polymer/lib/utils/async.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
 
 <!--
 An element for displaying the progress of a wizard as a series of connected circles.
@@ -59,7 +55,6 @@ Custom property | Description | Default
 @hero hero.svg
 -->
 <dom-module id="timeu-wizard">
-
   <template>
     <style>
       :host {
@@ -251,56 +246,59 @@ Custom property | Description | Default
      </div>
   </template>
   <script>
-    Polymer({
+    class TimeuWizard extends Polymer.GestureEventListeners(Polymer.Element) {
+      static get is() { return 'timeu-wizard'; }
+      static get properties() {
+        return {
+          /**
+          * Fired when a step item is tapped.
+          *
+          * @event timeu-wizard-item-tap
+          */
 
-      is: 'timeu-wizard',
+          /**
+          * `step` indicates the current step in the wizard
+          */
+          step: {
+            type: Number,
+            notify: true,
+            value: 1,
+            observer: '_validateStep'
+          },
 
-      properties: {
-        /**
-         * Fired when a step item is tapped.
-         *
-         * @event timeu-wizard-item-tap
-         */
+          /**
+          * Specifiies the available steps.
+          *
+          * @type [string]
+          */
+          steps: {
+            type: Array,
+            value: function() {
+              return [];
+            }
+          },
 
-        /**
-         * `step` indicates the current step in the wizard
-         */
-        step: {
-          type: Number,
-          notify: true,
-          value: 1,
-          observer: '_validateStep'
-        },
-
-        /**
-         * Specifiies the available steps.
-         *
-         * @type [string]
-         */
-        steps: {
-          type: Array,
-          value: function() {
-            return [];
+          /**
+          * If set to true, a vertical progress wizard will be displayed.
+          *
+          * @type [string]
+          */
+          vertical: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
           }
-        },
-
-        /**
-         * If set to true, a vertical progress wizard will be displayed.
-         *
-         * @type [string]
-         */
-        vertical: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
         }
-      },
+      }
 
       // Element Lifecycle
 
-      attached: function() {
-        this._width = this.getBoundingClientRect().width;
-      },
+      connectedCallback() {
+        super.connectedCallback();
+        Polymer.RenderStatus.beforeNextRender(this, function() {
+          this._width = this.getBoundingClientRect().width;
+        });
+      }
 
       // Element Behavior
 
@@ -309,42 +307,42 @@ Custom property | Description | Default
        *
        * Use this function for moving to the next step in the wizard
        */
-      increment: function() {
+      increment() {
         if (this.step < this.steps.length) {
           this.step++;
         }
-      },
+      }
 
       /**
        * Decrement the current step
        *
        * Use this function for moving to the previous step in the wizard
        */
-      decrement: function() {
+      decrement() {
         if (this.step > 1) {
           this.step--;
         }
-      },
+      }
 
-      _validateStep: function(newValue,oldValue) {
+      _validateStep(newValue,oldValue) {
         if (this.steps === undefined) {
           return;
         }
         if (newValue < 1 || newValue === undefined ||  newValue > this.steps.length) {
-          this.async(function() {
-            this.step = oldValue;
+          Polymer.Async.microTask.run(() => {
+            this.step = oldValue
           });
         }
-      },
+      }
 
-      _getLabel: function(item) {
+      _getLabel(item) {
         if (item !== null && typeof item === 'object' && item.label !== undefined) {
           return item.label;
         }
         return item;
-      },
+      }
 
-      _computeClass: function(index,item,step) {
+      _computeClass(index, item, step) {
         if ((index+1) < step) {
           return "done";
         }
@@ -352,9 +350,9 @@ Custom property | Description | Default
           return "active";
         }
         return "";
-      },
+      }
 
-      _caclulateRatio: function(steps,step) {
+      _caclulateRatio(steps, step) {
         if (steps === undefined || step === 1) {
           return 0;
         }
@@ -362,22 +360,20 @@ Custom property | Description | Default
           return 1;
         }
         return (step-1)/(steps.length-1);
-      },
+      }
 
-      _calculateFilling: function(steps,step,vertical) {
+      _calculateFilling(steps, step, vertical) {
           var ratio = this._caclulateRatio(steps,step);
           var scaleX = (vertical ? 1 : ratio);
           var scaleY = (vertical ? ratio : 1);
           return scaleX+","+scaleY;
-      },
-
-      _handleItemTap: function(e) {
-        this.fire('timeu-wizard-item-tap', {
-          model: e.model,
-          target: e.target
-        });
       }
-    });
+
+      _handleItemTap(e) {
+        this.dispatchEvent(new CustomEvent('timeu-wizard-item-tap', { bubbles: true, composed: true, detail: {model: e.model, target:e.target} }));
+      }
+    }
+    window.customElements.define(TimeuWizard.is, TimeuWizard);
   </script>
 </dom-module>
 

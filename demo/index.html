@@ -21,93 +21,97 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="import" href="../timeu-wizard.html">
-  <style is="custom-style" include="demo-pages-shared-styles">
-    .controls {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      padding: 10px;
-    }
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+      .controls {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+      }
 
-    .controls * {
-      margin: 10px;
-    }
+      .controls * {
+        margin: 10px;
+      }
 
-    .controls input {
-      width: 50px;
-    }
+      .controls input {
+        width: 50px;
+      }
 
-    #css {
-      --timeu-wizard-line-color: yellow;
-      --timeu-wizard-line-size: 3px;
-      --timeu-wizard-circle-size: 60px;
-      --timeu-wizard-filling-color: red;
-      --timeu-wizard-anim-speed: 1s;
-      --timeu-wizard-active-color: blue;
-      --timeu-wizard-label-font-size: 20px;
-      --timeu-wizard-step-font-size: 30px;
-      --timeu-wizard-circle-border-size: 2px;
-    }
+      #css {
+        --timeu-wizard-line-color: yellow;
+        --timeu-wizard-line-size: 3px;
+        --timeu-wizard-circle-size: 60px;
+        --timeu-wizard-filling-color: red;
+        --timeu-wizard-anim-speed: 1s;
+        --timeu-wizard-active-color: blue;
+        --timeu-wizard-label-font-size: 20px;
+        --timeu-wizard-step-font-size: 30px;
+        --timeu-wizard-circle-border-size: 2px;
+      }
 
-    #icon {
-      --timeu-wizard-step-font-family: FontAwesome;
-    }
-  </style>
+      #icon {
+        --timeu-wizard-step-font-family: FontAwesome;
+      }
+    </style>
+  </custom-style>
 </head>
 
-<body unresolved>
-  <template is="dom-bind">
-    <p>Default styling of <code>&lt;timeu-wizard&gt;</code>:</p>
-    <timeu-wizard id="default" steps='["Step 1","Step 2","Step3","Step4","Step5"]' step="{{defaultWizardStep}}">
-    </timeu-wizard>
-    <div class="controls">
-      <button data-type="previous" data-wizard="default">Previous</button>
-      <button data-type="next" data-wizard="default">Next</button>
-      <input type="number" min="1" value="{{defaultWizardStep::input}}">
-    </div>
-
-    <p>Example with icons (FontAwesome) <code>&lt;timeu-wizard&gt;</code>:</p>
-
-    <timeu-wizard id="icon" steps='[{"label":"FIRST STEP","content":"&#xf007;"},{"label":"CHOOSE INTEREST","content":"&#xf132;"},{"label":"ADD FRIENDS","content":"&#xf041;"},{"label":"VIEW MAP","content":"&#xf07a;"}]'
-      step="{{iconWizardStep}}">
-    </timeu-wizard>
-    <div class="controls">
-      <button data-type="previous" data-wizard="icon">Previous</button>
-      <button data-type="next" data-wizard="icon">Next</button>
-      <input type="number" min="1" value="{{iconWizardStep::input}}">
-    </div>
-
-    <p>Example with custom CSS variables <code>&lt;timeu-wizard&gt;</code>:</p>
-    <p><code>--timeu-wizard-line-color: yellow;<br>
-          --timeu-wizard-line-size: 3px;<br>
-          --timeu-wizard-circle-size: 60px;<br>
-          --timeu-wizard-filling-color: red;<br>
-          --timeu-wizard-anim-speed: 1s;<br>
-          --timeu-wizard-active-color: blue;<br>
-          --timeu-wizard-label-font-size: 20px;<br>
-          --timeu-wizard-step-font-size: 30px;<br>
-          --timeu-wizard-circle-border-size: 2px;<br></code></p>
-
-    <timeu-wizard id="css" steps='["Step 1","Step 2","Step3","Step4"]' step="{{customcssStep}}">
-    </timeu-wizard>
-    <div class="controls">
-      <button data-type="previous" data-wizard="css">Previous</button>
-      <button data-type="next" data-wizard="css">Next</button>
-      <input type="number" min="1" value="{{customcssStep::input}}">
-    </div>
-
-    <p>Example for vertical <code>&lt;timeu-wizard vertical&gt;</code>:</p>
-    <div style="height:500px;width:50px;">
-      <timeu-wizard id="vertical" steps='["Step 1","Step 2","Step3","Step4"]' vertical step="{{verticalStep}}">
+<body>
+  <dom-bind>
+    <template>
+      <p>Default styling of <code>&lt;timeu-wizard&gt;</code>:</p>
+      <timeu-wizard id="default" steps='["Step 1","Step 2","Step3","Step4","Step5"]' step="{{defaultWizardStep}}">
       </timeu-wizard>
-    </div>
-    <div class="controls">
-      <button data-type="previous" data-wizard="vertical">Previous</button>
-      <button data-type="next" data-wizard="vertical">Next</button>
-      <input type="number" min="1" value="{{verticalStep::input}}">
-    </div>
+      <div class="controls">
+        <button data-type="previous" data-wizard="default">Previous</button>
+        <button data-type="next" data-wizard="default">Next</button>
+        <input type="number" min="1" value="{{defaultWizardStep::input}}">
+      </div>
 
-  </template>
+      <p>Example with icons (FontAwesome) <code>&lt;timeu-wizard&gt;</code>:</p>
+
+      <timeu-wizard id="icon" steps='[{"label":"FIRST STEP","content":"&#xf007;"},{"label":"CHOOSE INTEREST","content":"&#xf132;"},{"label":"ADD FRIENDS","content":"&#xf041;"},{"label":"VIEW MAP","content":"&#xf07a;"}]'
+        step="{{iconWizardStep}}">
+      </timeu-wizard>
+      <div class="controls">
+        <button data-type="previous" data-wizard="icon">Previous</button>
+        <button data-type="next" data-wizard="icon">Next</button>
+        <input type="number" min="1" value="{{iconWizardStep::input}}">
+      </div>
+
+      <p>Example with custom CSS variables <code>&lt;timeu-wizard&gt;</code>:</p>
+      <p><code>--timeu-wizard-line-color: yellow;<br>
+            --timeu-wizard-line-size: 3px;<br>
+            --timeu-wizard-circle-size: 60px;<br>
+            --timeu-wizard-filling-color: red;<br>
+            --timeu-wizard-anim-speed: 1s;<br>
+            --timeu-wizard-active-color: blue;<br>
+            --timeu-wizard-label-font-size: 20px;<br>
+            --timeu-wizard-step-font-size: 30px;<br>
+            --timeu-wizard-circle-border-size: 2px;<br></code></p>
+
+      <timeu-wizard id="css" steps='["Step 1","Step 2","Step3","Step4"]' step="{{customcssStep}}">
+      </timeu-wizard>
+      <div class="controls">
+        <button data-type="previous" data-wizard="css">Previous</button>
+        <button data-type="next" data-wizard="css">Next</button>
+        <input type="number" min="1" value="{{customcssStep::input}}">
+      </div>
+
+      <p>Example for vertical <code>&lt;timeu-wizard vertical&gt;</code>:</p>
+      <div style="height:500px;width:50px;">
+        <timeu-wizard id="vertical" steps='["Step 1","Step 2","Step3","Step4"]' vertical step="{{verticalStep}}">
+        </timeu-wizard>
+      </div>
+      <div class="controls">
+        <button data-type="previous" data-wizard="vertical">Previous</button>
+        <button data-type="next" data-wizard="vertical">Next</button>
+        <input type="number" min="1" value="{{verticalStep::input}}">
+      </div>
+
+    </template>
+  </dom-bind>
   <script>
     window.addEventListener('WebComponentsReady', function (e) {
       var nextBtns = document.querySelectorAll('button[data-type=next]');

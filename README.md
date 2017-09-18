@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/timeu/timeu-wizard.svg)](https://travis-ci.org/timeu/timeu-wizard) [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/timeu/timeu-wizard)
 
-_[Demo and API Docs](https://www.webcomponents.org/element/timeu/canvas-piechart)_
+_[Demo and API Docs](https://www.webcomponents.org/element/timeu/timeu-wizard)_
 
 
 ## &lt;timeu-wizard&gt;
